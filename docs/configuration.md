@@ -20,7 +20,8 @@ development.
 
 | Section | Keys | Purpose |
 |---|---|---|
-| `[auth]` | `allowlist[]`, `providers[]`, `client_ip_header` | Emails allowed to log in (empty means everyone); enabled login providers, in display order (see [Logging in](logging-in.md)); the `$_SERVER` key holding the client address behind a proxy, e.g. `HTTP_X_FORWARDED_FOR` (default `REMOTE_ADDR`) |
+| `[auth]` | `allowlist[]`, `providers[]`, `member_source`, `client_ip_header` | Emails allowed to log in (empty means everyone); enabled login providers, in display order (see [Logging in](logging-in.md)); the `$_SERVER` key holding the client address behind a proxy, e.g. `HTTP_X_FORWARDED_FOR` (default `REMOTE_ADDR`). `member_source` is empty for the `members` table or `conreg` to look members up in a [Conreg database](logging-in.md#conreg) |
+| `[conreg_db]` | `host`, `port`, `name`, `user`, `password`, `event_id`, `table_prefix` | The Conreg database for the `conreg` member source; see [Conreg](logging-in.md#conreg) |
 | `[oidc]` | `provider_url`, `client_id`, `client_secret`, `scopes[]`, `claims[...]`, `role_map[...]`, `provider_logout`, `password_change_url`, `verify_tls` | The `oidc` login provider; see [OpenID Connect login](logging-in.md#openid-connect-login) |
 | `[smtp]` | `host`, `port`, `username`, `password`, `secure` | Outgoing mail for the `local` login provider. `secure` is empty, `tls` or `ssl` |
 | `[crypto]` | `signing_key` | Signs emailed links and hashes login codes for the `local` provider. At least 32 characters; generate with `openssl rand -hex 32` |

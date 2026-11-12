@@ -118,3 +118,33 @@ members through `MemberSource`, with its `search()` method. With the default,
 it only finds members who have logged in. If members buy a paper ballot
 before they have logged in to the portal, implement `search()` against the
 registration system, whichever login provider you use.
+
+### Conreg
+
+To find members in a [Conreg](https://www.drupal.org/project/conreg) (Drupal)
+database, set `member_source = conreg` in the `[auth]` section and add a
+`[conreg_db]` section:
+
+```ini
+[auth]
+member_source = conreg
+
+[conreg_db]
+host = conreg-db.example.com
+;port = 3306
+name = drupal
+user = portal
+password = ...
+;event_id = 1
+;table_prefix =
+```
+
+The connection is MySQL or MariaDB, and the account only needs `SELECT` on
+`conreg_members`. `event_id` defaults to 1, and `table_prefix` is Drupal's
+table prefix if the site uses one.
+
+Only members that are paid, approved, not deleted and have a member number are
+found, and the member number is the badge number. A member
+without an email address of their own uses the email of the lead member of
+their group, so everyone who shares an email gets the chooser after logging in.
+The name is the badge name, or the first and last name without one.

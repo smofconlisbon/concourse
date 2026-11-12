@@ -26,10 +26,15 @@ function auth_provider_factories() {
   ];
 }
 
-// Where the local provider and the site selection desk find members. Replace
-// this to look members up in a registration system instead of the members
-// table.
+// Where the local provider and the site selection desk find members: the
+// members table, or a Conreg database with `member_source = conreg` in the
+// [auth] section. Replace this to look members up in another registration
+// system.
 function auth_member_source() {
+  if (trim((string) config_get('auth', 'member_source')) === 'conreg') {
+    require_once(__DIR__ . '/ConregMemberSource.php');
+    return new ConregMemberSource();
+  }
   require_once(__DIR__ . '/DbMemberSource.php');
   return new DbMemberSource();
 }
