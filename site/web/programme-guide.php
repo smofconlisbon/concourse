@@ -5,7 +5,7 @@ require_once(getenv('CONFIG_LIB_DIR') . '/session_auth.php');
 require_once(getenv('CONFIG_LIB_DIR') . '/template.php');
 
 if (current_user_has_permission('see-guide-redirect')) {
-  header('Location: ' . 'https://example.com/programme-guide');
+  header('Location: ' . 'https://guide.smofconlisbon.org/');
   exit;
 }
 

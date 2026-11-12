@@ -24,7 +24,7 @@ $cards = [
       'name' => 'maps',
       'title' => 'Maps',
       'subtitle' => '',
-      'link' => '/maps',
+      'link' => 'https://map.smofconlisbon.org/',
       'card-permission' => 'see-maps',
     ], [
       'name' => 'times',
@@ -38,24 +38,6 @@ $cards = [
       'subtitle' => 'Readme',
       'link' => current_user_has_permission('see-readme-redirect') ? 'https://example.com/convention-readme' : '/convention-guide',
       'card-permission' => 'see-readme',
-    ], [
-      'name' => 'newsletter',
-      'title' => 'Newsletter',
-      'subtitle' => '',
-      'link' => current_user_has_permission('see-newsletter-redirect') ? 'https://example.com/newsletter' : '/newsletter',
-      'card-permission' => 'see-help',
-    ], [
-      'name' => 'accessibility',
-      'title' => 'Accessibility',
-      'subtitle' => '',
-      'link' => 'https://example.com/accessibility/',
-      'card-permission' => 'see-accessibility',
-    ], [
-      'name' => 'childcare',
-      'title' => 'Childcare',
-      'subtitle' => '',
-      'link' => 'https://example.com/childcare/',
-      'card-permission' => 'has-childcare'
     ], [
       'name' => 'coc',
       'title' => 'Code of Conduct',
@@ -81,7 +63,7 @@ $cards = [
       'name' => 'guide',
       'title' => 'Programme guide',
       'subtitle' => 'ConClár',
-      'link' => current_user_has_permission('see-guide-redirect') ? 'https://example.com/programme-guide' : '/programme-guide',
+      'link' => current_user_has_permission('see-guide-redirect') ? 'https://guide.smofconlisbon.org/' : '/programme-guide',
       'card-permission' => 'see-guide',
     ], [
       'name' => 'stream',
@@ -96,18 +78,6 @@ $cards = [
       'link' => '/sign-ups',
       'card-permission' => 'see-signups',
     ], [
-      'name' => 'tours',
-      'title' => 'Tours and activities',
-      'subtitle' => 'Beyond the programme',
-      'link' => 'https://example.com/tours-and-activities',
-      'card-permission' => 'see-tours',
-    ], [
-      'name' => 'virtual-gathering',
-      'title' => 'Virtual gatherings',
-      'subtitle' => 'Host your own hangout',
-      'link' => '/virtual-gatherings',
-      'card-permission' => 'see-virtual-gathering'
-    ], [
       'name' => 'chat',
       'title' => 'Chat online',
       'subtitle' => 'Discord',
@@ -117,22 +87,10 @@ $cards = [
   ],
   'Participate' => [
     [
-      'name' => 'volunteer',
-      'title' => 'Volunteer',
-      'subtitle' => '',
-      'link' => 'https://example.com/volunteer',
-      'card-permission' => 'see-website',
-    ], [
-      'name' => 'upload-photo',
-      'title' => 'Upload your photo',
-      'subtitle' => 'For online members',
-      'link' => '/upload-photo',
-      'card-permission' => 'see-upload-photo',
-    ], [
       'name' => 'itinerary',
       'title' => 'Your participant schedule',
-      'subtitle' => 'Planorama',
-      'link' => 'https://example.com/participant-schedule',
+      'subtitle' => 'PlanZ',
+      'link' => 'https://participants.smofconlisbon.org',
       'card-permission' => 'see-itinerary'
     ], [
       'name' => 'participant-guides',
@@ -146,34 +104,10 @@ $cards = [
       'subtitle' => 'Programme participants and presenters',
       'link' => '/upload-presentation',
       'card-permission' => 'see-upload-presentation'
-    ], [
-      'name' => 'business-meeting',
-      'title' => 'Business Meeting',
-      'subtitle' => 'WSFS',
-      'link' => '/business-meeting',
-      'card-permission' => 'see-business-meeting'
-    ], [
-      'name' => 'site-selection',
-      'title' => 'Site selection',
-      'subtitle' => 'Vote for the ' . SITE_SELECTION['year'] . ' Worldcon',
-      'link' => '/site-selection',
-      'card-permission' => 'see-site-selection'
     ]
   ],
   'Other' => [
     [
-      'name' => 'gallery',
-      'title' => 'Art show',
-      'subtitle' => '',
-      'link' => 'https://example.com/art-show',
-      'card-permission' => 'see-gallery',
-    ], [
-      'name' => 'benefits',
-      'title' => 'Member benefits',
-      'subtitle' => '',
-      'link' => 'https://example.com/member-benefits',
-      'card-permission' => 'see-benefits',
-    ], [
       'name' => 'manage-roles',
       'title' => 'Manage roles',
       'subtitle' => 'Admin',
