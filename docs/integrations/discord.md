@@ -1,12 +1,33 @@
 # Discord
 
-The portal lets members join the convention's Discord server with their
-badge name as their nickname, and links Discord accounts to members so the
-server can give them roles. It has three parts in Discord: an OAuth
-application, a bot in the server, and optionally a companion bot that asks
-the portal about members, such as [Watson](watson.md).
+The portal lets members join the convention's Discord server, and can link
+Discord accounts to members so the server can give them roles. There are two
+ways to let members join, and you can use either.
 
 ## Joining the server
+
+### Invite link
+
+The simple option. In the secrets file set a regular invite link:
+
+```ini
+[discord]
+invite_url = https://discord.gg/AbCdEf
+```
+
+The Chat online page (`/chat`) then shows a button to that link. The button
+goes through `/join-discord`, which records that the member followed it before
+redirecting to the invite. Members aren't linked to their Discord account, so
+roles can't be matched to them.
+
+The programme item deep links (`/deep-link/chat`) use that record to decide
+whether the member has joined. It's only a guess, since a member may follow the
+link without accepting the invite.
+
+### OAuth
+
+Leave `invite_url` unset to use this instead. It needs an OAuth application
+and a bot in the server.
 
 1. In the [Discord Developer Portal](https://discord.com/developers/applications),
    create an application.
@@ -26,10 +47,13 @@ the portal about members, such as [Watson](watson.md).
    `DISCORD_INVITE_CHANNEL_ID` to the channel new members land in. (Turn on
    developer mode in Discord to copy ids.)
 
-The Chat online card (`/chat`, permission `see-discord`) then has a button
-that asks the member to authorise the application. The portal records their
-Discord id and username, adds them to the server with their badge name as
-nickname, and sends them to a single use invite in case adding them failed.
+The Chat online page then has a button that asks the member to authorise the
+application. The portal records their Discord id and username, adds them to
+the server with their badge name as nickname, and sends them to a single use
+invite in case adding them failed.
+
+
+If neither is configured, the Chat page says the server isn't open yet.
 
 ## Roles in the server
 

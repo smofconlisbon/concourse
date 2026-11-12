@@ -184,6 +184,9 @@ define('ZOOM_EVENTS_TICKET_TYPE_ID', config_get('zoom_events', 'ticket_type_id')
 define('ZOOM_EVENTS_TICKET_EMAIL_DOMAIN', config_get('zoom_events', 'ticket_email_domain'));
 
 define('DISCORD_CLIENT_ID', config_get('discord', 'client_id'));
+// Public invite link to the Discord server shown on the Chat page, e.g.
+// https://discord.gg/AbCdEf. Empty until the server opens.
+define('DISCORD_INVITE_URL', trim((string) config_get('discord', 'invite_url')));
 // Invite code for the separate business meeting Discord server, the part after
 // https://discord.gg/. Empty until it opens.
 define('DISCORD_BM_INVITE', trim((string) config_get('discord', 'bm_invite')));

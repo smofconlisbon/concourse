@@ -164,6 +164,14 @@ function db_set_discord_id($badge_no, $discord_id, $discord_username) {
   );
 }
 
+function db_record_discord_invite_click($badge_no) {
+  db_insert_ignore('discord_invite_clicks', ['badge_no' => $badge_no]);
+}
+
+function db_has_clicked_discord_invite($session_id) {
+  return (bool) db_fetch_value("SELECT 1 FROM discord_invite_clicks JOIN sessions USING (badge_no) WHERE session_id = ?", [$session_id]);
+}
+
 function db_member_exists($badge_no) {
   return db_fetch_value("SELECT 1 FROM members WHERE badge_no = ?", [$badge_no]);
 }

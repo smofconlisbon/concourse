@@ -4,9 +4,18 @@ require_once(getenv('CONFIG_LIB_DIR') . '/config.php');
 require_once(getenv('CONFIG_LIB_DIR') . '/session_auth.php');
 require_once(getenv('CONFIG_LIB_DIR') . '/template.php');
 
+// With an invite link there are no linked Discord accounts, so following the
+// link from the portal is taken to mean they joined. They may not have
+// accepted the invite.
+function has_joined_discord() {
+  if (DISCORD_INVITE_URL !== '') {
+    return db_has_clicked_discord_invite($_COOKIE[SESSION_COOKIE_NAME]);
+  }
+  return !empty(db_get_discord_usernames($_COOKIE[SESSION_COOKIE_NAME]));
+}
+
 if (array_key_exists('check_has_joined_discord', $_GET)) {
-  $usernames = db_get_discord_usernames($_COOKIE[SESSION_COOKIE_NAME]);
-  echo !empty($usernames) ? 'true' : 'false';
+  echo has_joined_discord() ? 'true' : 'false';
   exit;
 }
 
@@ -73,13 +82,12 @@ if (array_key_exists('item_id', $_GET)) {
   die('Missing required query parameter "item_id" or "room_id"');
 }
 
-$usernames = db_get_discord_usernames($_COOKIE[SESSION_COOKIE_NAME]);
-if (!empty($usernames)) {
+if (has_joined_discord()) {
   header('Location: ' . $post['post_url']);
   exit;
 }
 
-$invite_url = htmlspecialchars(discord_authorize_url());
+$invite_url = htmlspecialchars(DISCORD_INVITE_URL !== '' ? '/join-discord' : discord_authorize_url());
 
 render_header(
   'Go to a Discord chat for an item',
