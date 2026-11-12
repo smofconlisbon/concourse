@@ -80,7 +80,7 @@ if (ALLOW_ANONYMOUS_ACCESS) {
     if (time() < strtotime(CON_START_DATE)) {
 ?>
     <h3>Not a member?</h3>
-    <p>If you&apos;re not yet a member of the convention, you can still <a href="https://example.com/buy-membership">purchase a membership or ticket</a>.</p>
+    <p>If you&apos;re not yet a member of the convention, you can still <a href="https://register.smofconlisbon.org/members/register">purchase a membership or ticket</a>.</p>
 <?php
     }
 ?>
@@ -89,7 +89,7 @@ if (ALLOW_ANONYMOUS_ACCESS) {
     <?php
     if (time() < strtotime(CON_START_DATE)) {
     ?>
-        If you don&apos;t already have one of these and would like to access the portal, you can <a href="https://example.com/buy-membership">purchase a membership or ticket</a>.
+        If you don&apos;t already have one of these and would like to access the portal, you can <a href="https://register.smofconlisbon.org/members/register">purchase a membership or ticket</a>.
     <?php
     }
     ?>

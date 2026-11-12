@@ -58,7 +58,7 @@ Change these to whatever your convention uses, or remove the cards.
 
 ## Look and feel
 
-- The logo is `site/web/resources/logo-*.webp` and the browser icon is
+- The header shows `CON_SHORT_NAME` as text. The browser icon is
   `site/web/resources/favicon.png`.
 - Colours and fonts are in `site/web/resources/style.css`; the colours are
   custom properties at the top of the file.

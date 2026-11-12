@@ -1,18 +1,21 @@
+/* Palette follows the Tailwind teal/gray/orange/sky scales used by the
+   convention website. */
 :root {
-  --primary-color: #0170B9;
+  --primary-color: #00786f;
 
   --link-color: var(--primary-color);
-  --link-hover-color: #3a3a3a;
+  --link-hover-color: #005f5a;
   --body-bg-color: white;
-  --body-fg-color: #4B4F58;
-  --header-bg-color: #eee;
-  --header-border-color: #fff5;
-  --footer-bg-color: #424242;
-  --footer-fg-color: #F5F5F5;
-  --footer-border-color: #E5E5E5;
-  --card-border-color: #0170B988;
+  --body-fg-color: #364153;
+  --header-bg-color: #101828;
+  --header-fg-color: white;
+  --header-border-color: #fff3;
+  --footer-bg-color: #022f2e;
+  --footer-fg-color: white;
+  --footer-border-color: #022f2e;
+  --card-border-color: #00786f88;
   --button-bg-color: var(--primary-color);
-  --button-hover-bg-color: #2b3990;
+  --button-hover-bg-color: #005f5a;
   --button-fg-color: white;
   --button-disabled-bg-color: #DDD;
   --button-disabled-fg-color: #202226;
@@ -24,83 +27,26 @@
   --select-list-hover-bg-color: #DDD;
   --select-list-fg-color: var(--link-color);
 
-  --info-pattern: repeating-linear-gradient( 45deg, #187bb9, #187bb9 5px, #1b80bd 5px, #1b80bd 25px) #1b80bd;
-  --info-color-light: #f0feff;
+  --info-pattern: #009689;
+  --info-color-light: #f0fdfa;
 
-  --prog-bg: #056940;
-  --prog-color-light: #ecfaf5;
+  --prog-bg: #00699f;
+  --prog-color-light: #f0f9ff;
 
-  --part-bg: linear-gradient(135deg, #2d3276 25%, transparent 25%), linear-gradient(225deg, #2d3276 25%, transparent 25%), linear-gradient(45deg, #2d3276 25%, transparent 25%), linear-gradient(315deg, #2d3276 25%, #323884 25%) #323884;
-  --part-bg-size: 32px 32px;
-  --part-bg-pos: 16px 0, 16px 0, 0 0, 0 0;
-  --part-bg-repeat: repeat;
-  --part-color-light: #f2f4ff;
+  --part-bg: #f54a00;
+  --part-bg-size: auto;
+  --part-bg-pos: 0 0;
+  --part-bg-repeat: no-repeat;
+  --part-color-light: #fff7ed;
 
-  --events-bg: linear-gradient(0deg, #8bab68 50%, #80a856 50%) #8bab68;
-  --events-bg-size: 10px 10px;
-  --events-color-light: #fffeed;
-}
-
-@font-face {
-  font-family: 'Gruppo';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(gruppo-normal-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url(roboto-italic-latin-ext.woff2) format('woff2');
-  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url(roboto-italic-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(roboto-normal-latin-ext.woff2) format('woff2');
-  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(roboto-normal-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(roboto-bold-latin-ext.woff2) format('woff2');
-  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(roboto-bold-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  --events-bg: #364153;
+  --events-bg-size: auto;
+  --events-color-light: #f9fafb;
 }
 
 body {
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
@@ -111,10 +57,6 @@ body {
 
 [data-loading] {
   display: none;
-}
-
-.site-branding {
-  font-family: "Gruppo", display;
 }
 
 h2 {
@@ -191,6 +133,11 @@ img {
 header {
   background-color: var(--header-bg-color);
   border-bottom: solid 1px var(--header-border-color);
+  color: var(--header-fg-color);
+}
+
+header a, header a:hover {
+  color: var(--header-fg-color);
 }
 
 footer {
@@ -245,26 +192,20 @@ li {
   align-items: center;
   text-align: left;
   flex-shrink: 0;
-  color: black;
+  color: var(--header-fg-color);
   text-decoration: none;
 }
 
 .site-logo {
-  margin-right: 1em;
-  display: inline-block;
-  max-width: 100%;
-}
-
-.site-logo img {
-  width: 50px;
-  vertical-align: middle;
-  height: auto;
-  max-width: 100%;
+  height: 48px;
+  width: auto;
+  margin-right: 0.75em;
+  background-color: white;
 }
 
 .site-branding h1 {
   margin: 0;
-  font-size: 25px;
+  font-size: 1.5rem;
   line-height: 1.2em;
   word-wrap: break-word;
   font-weight: 700;
@@ -278,7 +219,7 @@ li {
 
 
 .site-branding a, .site-branding a:hover {
-  color: black;
+  color: var(--header-fg-color);
   text-decoration: none;
 }
 
@@ -699,7 +640,7 @@ main {
 }
 
 .card h3 {
-  font-family: "Roboto", sans-serif;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   margin-bottom: 5px;
   font-size: 24px;
 }
@@ -1239,20 +1180,20 @@ ul.maps li a {
 
 @media (prefers-contrast: more) {
   :root {
-    --primary-color: #014E82;
+    --primary-color: #005f5a;
   
     --link-color: var(--primary-color);
     --link-hover-color: black;
     --body-bg-color: white;
     --body-fg-color: black;
-    --header-bg-color: #eee;
-    --header-border-color: black;
+    --header-bg-color: #000;
+    --header-border-color: white;
     --footer-bg-color: #1f1f1f;
     --footer-fg-color: white;
     --footer-border-color: white;
     --card-border-color: #00000088;
     --button-bg-color: var(--primary-color);
-    --button-hover-bg-color: #2b3990;
+    --button-hover-bg-color: #022f2e;
     --button-fg-color: white;
     --button-disabled-bg-color: #DDD;
     --button-disabled-fg-color: black;
@@ -1413,13 +1354,13 @@ button {
 }
 
 #user-menu-label {
-  color: var(--link-color);
+  color: var(--header-fg-color);
   cursor: pointer;
 }
 
 #user-menu-label:hover,
 #user-menu-toggle:focus + #user-menu-label {
-  color: var(--link-hover-color);
+  text-decoration: underline;
 }
 
 #user-menu-toggle:focus-visible + #user-menu-label {

@@ -60,7 +60,7 @@ $cards = [
       'name' => 'coc',
       'title' => 'Code of Conduct',
       'subtitle' => '',
-      'link' => 'https://example.com/code-of-conduct/',
+      'link' => 'https://www.smofconlisbon.org/policies/code-of-conduct',
       'card-permission' => 'see-coc',
     ], [
       'name' => 'help',
@@ -72,7 +72,7 @@ $cards = [
       'name' => 'website',
       'title' => 'Website',
       'subtitle' => '',
-      'link' => 'https://example.com/',
+      'link' => 'https://www.smofconlisbon.org/',
       'card-permission' => 'see-website',
     ]
   ],

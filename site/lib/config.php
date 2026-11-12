@@ -7,21 +7,21 @@ $is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
   || ($_SERVER['SERVER_PORT'] ?? '') == 443;
 define('IS_HTTPS', $is_https);
 define('ROOT_URL', ($is_https ? 'https://' : 'http://') . ($_SERVER['HTTP_X_FORWARDED_HOST'] ?? $_SERVER['HTTP_HOST']));
-define('CON_NAME', 'Example Convention, a great tagline for a great demo');
-define('CON_WEBSITE', 'https://example.com');
-define('REGISTRATION_URL', 'https://example.com/register');
-define('CON_SHORT_NAME', 'ExampleCon');
-define('CON_START_DATE', '2025-01-01');
+define('CON_NAME', 'SMOFcon 43, Fostering con-running talent and facilitating connections');
+define('CON_WEBSITE', 'https://www.smofconlisbon.org');
+define('REGISTRATION_URL', 'https://register.smofconlisbon.org/members/register');
+define('CON_SHORT_NAME', 'SMOFcon 43');
+define('CON_START_DATE', '2026-12-04');
 // Your Discord server's id, the channel new members are invited to, and the
 // channel the companion bot listens on. See docs/integrations/discord.md.
 define('DISCORD_GUILD_ID', '');
 define('DISCORD_INVITE_CHANNEL_ID', '');
 define('DISCORD_API_CHANNEL_ID', '');
-define("SUPPORT_EMAIL", "online-convention-help@example.com");
-define("REGISTRATION_EMAIL", "registration@example.com");
-define("TECH_EMAIL", "tech@example.com");
-define("PROGRAMME_EMAIL", "programme@example.com");
-define('TIMEZONE', 'Europe/London');
+define("SUPPORT_EMAIL", "info@smofconlisbon.org");
+define("REGISTRATION_EMAIL", "info@smofconlisbon.org");
+define("TECH_EMAIL", "info@smofconlisbon.org");
+define("PROGRAMME_EMAIL", "programme@smofconlisbon.org");
+define('TIMEZONE', 'Europe/Lisbon');
 define('ALLOW_ANONYMOUS_ACCESS', true);
 
 // Roles given to a member when they log in, keyed by role name and listing the

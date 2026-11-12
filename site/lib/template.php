@@ -33,9 +33,7 @@
     <header>
       <div class="container">
         <a href="/" class="site-branding-container" rel="home">
-          <div class="site-logo">
-            <img width="36" height="36" src="/resources/logo-2x.webp" srcset="/resources/logo-1x.webp 1x, /resources/logo-1.5x.webp 1.5x, /resources/logo-2x.webp 2x" alt="">
-          </div>
+          <img class="site-logo" src="/resources/favicon.png" alt="" width="48" height="48">
           <div class="site-branding">
             <hgroup>
               <h1><?php echo CON_SHORT_NAME; ?></h1>
