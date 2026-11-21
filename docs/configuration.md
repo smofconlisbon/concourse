@@ -29,7 +29,7 @@ development.
 | `[api_keys]` | `<client name> = <shared secret>` | Shared secrets for API clients; see [The API](integrations/api.md) |
 | `[discord]` | `bot_token`, `client_id`, `client_secret`, `invite_url`, `bm_invite` | Discord bot and OAuth app; see [Discord](integrations/discord.md). `invite_url` is a public invite link shown on the Chat page instead of the OAuth flow. `bm_invite` is the invite code for the separate Business Meeting server; see [Business meeting](integrations/business-meeting.md#discord) |
 | `[zoom_events]` | `client_id`, `client_secret`, `account_id`, `event_id`, `ticket_type_id`, `ticket_email_domain` | The `zoomevents` programme handler; see [Zoom Events](integrations/programme.md#zoom-events). `ticket_email_domain` is optional |
-| `[conclar]` | `allowed_origins[]`, `schedule_url` | Origins hosting the ConClár programme guide, and an optional programme JSON for the favourites report. See [ConClár](integrations/conclar.md) |
+| `[conclar]` | `allowed_origins[]`, `app_ids[]`, `schedule_url` | Origins hosting the ConClár programme guide, the app ids it may store selections under, and an optional programme JSON for the favourites report. See [ConClár](integrations/conclar.md) |
 | `[square]` | `access_token`, `environment`, `location_id`, `catalog_item_variation_id`, `webhook_signature_key`, `notification_url` | Square, for the site selection fee. `environment` is `sandbox` (default) or `production`; `notification_url` is optional. See [Site selection](integrations/site-selection.md#setting-up-square) |
 | `[encryption]` | `config_encryption_key` | The key for [encrypted secrets](#encrypted-secrets), if it isn't given another way |
 

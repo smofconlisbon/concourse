@@ -215,8 +215,8 @@ define('OIDC_VERIFY_TLS', !in_array(strtolower(trim((string) config_get('oidc', 
 define('CONCLAR_ALLOWED_ORIGINS', array_map('trim', config_get('conclar', 'allowed_origins', [])));
 // Optional ConClár programme JSON, used to show item titles in the favourites report
 define('CONCLAR_SCHEDULE_URL', trim((string) config_get('conclar', 'schedule_url')));
-// The app ids a ConClár instance may store selections under, e.g. ['example2026']
-define('CONCLAR_VALID_APP_IDS', []);
+// app_ids[] lists the app ids a ConClár instance may store selections under
+define('CONCLAR_VALID_APP_IDS', array_map('trim', config_get('conclar', 'app_ids', [])));
 // The most items a member may have stored per app id
 define('CONCLAR_MAX_ITEMS', 300);
 

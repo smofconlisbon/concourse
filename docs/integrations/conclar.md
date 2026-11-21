@@ -11,6 +11,7 @@ Add the origin ConClár is served from to the secrets file:
 ```ini
 [conclar]
 allowed_origins[] = https://guide.example.com
+app_ids[] = example2026
 ; Optional. Adds item titles to the favourites report
 schedule_url = https://guide.example.com/programme.json
 ```
@@ -18,10 +19,10 @@ schedule_url = https://guide.example.com/programme.json
 Allowed origins are also valid places to send members back to after logging
 in. No trailing slash.
 
-Each ConClár instance identifies itself with an `app_id`. Add the ones you
-use to `CONCLAR_VALID_APP_IDS` in `site/lib/config.php`; requests with any
-other `app_id` are rejected. `CONCLAR_MAX_ITEMS` caps how many items a member
-can store per app id.
+Each ConClár instance identifies itself with an `app_id`. List the ones you
+use in `app_ids[]`; requests with any other `app_id` are rejected.
+`CONCLAR_MAX_ITEMS` in `site/lib/config.php` caps how many items a member can
+store per app id.
 
 The API is `GET` and `PATCH /api/conclar/apps/<app_id>/selections` and
 `GET /api/conclar/profile`. For the session cookie to be sent from another
@@ -31,7 +32,7 @@ different subdomain, `cookie_domain` must cover both (e.g. `.example.com`).
 ## ConClár
 
 In ConClár's `config.json`, set `APP_ID` to one of the ids in
-`CONCLAR_VALID_APP_IDS`, and add a `SYNC` section with `API_URL` pointing at
+`app_ids[]`, and add a `SYNC` section with `API_URL` pointing at
 the portal's ConClár API:
 
 ```json

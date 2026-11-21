@@ -138,6 +138,7 @@ signing_key = $(openssl rand -hex 32)
 
 ;[conclar]
 ;allowed_origins[] = https://guide.example.com
+;app_ids[] = example2026
 ;schedule_url =
 
 ;[square]
