@@ -335,6 +335,8 @@ function db_get_roles() {
 // The admin role has every permission, including ones added after it was set
 // up, whatever role_permissions says
 const ADMIN_ROLE_NAME = 'admin';
+// Every logged-in member has this role's permissions without being given it
+const LOGGED_IN_ROLE_NAME = 'logged-in';
 const GRANTED_ROLE_PERMISSIONS = "(SELECT role_id, permission_id FROM role_permissions UNION SELECT role_id, permission_id FROM roles CROSS JOIN permissions WHERE roles.name = '" . ADMIN_ROLE_NAME . "') granted";
 
 function db_get_role_permissions($role_id) {
@@ -414,7 +416,7 @@ function db_revoke_member_role($badge_no, $role_id) {
 
 // The member's permissions as they would be without one of their roles
 function db_get_member_permissions_without_role($badge_no, $role_id) {
-  return db_fetch_column("(SELECT name FROM permissions JOIN " . GRANTED_ROLE_PERMISSIONS . " USING (permission_id) JOIN member_roles USING (role_id) WHERE badge_no = ? AND role_id <> ?) UNION (SELECT permissions.name FROM permissions JOIN " . GRANTED_ROLE_PERMISSIONS . " USING (permission_id) JOIN roles USING (role_id) WHERE roles.name = 'default')", [$badge_no, $role_id]);
+  return db_fetch_column("(SELECT name FROM permissions JOIN " . GRANTED_ROLE_PERMISSIONS . " USING (permission_id) JOIN member_roles USING (role_id) WHERE badge_no = ? AND role_id <> ?) UNION (SELECT permissions.name FROM permissions JOIN " . GRANTED_ROLE_PERMISSIONS . " USING (permission_id) JOIN roles USING (role_id) WHERE roles.name IN ('default', '" . LOGGED_IN_ROLE_NAME . "'))", [$badge_no, $role_id]);
 }
 
 function db_get_default_permissions() {
@@ -422,7 +424,7 @@ function db_get_default_permissions() {
 }
 
 function db_get_permissions_by_session($session_id) {
-  return db_fetch_column("(SELECT name FROM permissions JOIN " . GRANTED_ROLE_PERMISSIONS . " USING (permission_id) JOIN member_roles USING (role_id) JOIN sessions USING (badge_no) WHERE session_id = ?) UNION (SELECT permissions.name FROM permissions JOIN " . GRANTED_ROLE_PERMISSIONS . " USING (permission_id) JOIN roles USING (role_id) WHERE roles.name = 'default')", [$session_id]);
+  return db_fetch_column("(SELECT name FROM permissions JOIN " . GRANTED_ROLE_PERMISSIONS . " USING (permission_id) JOIN member_roles USING (role_id) JOIN sessions USING (badge_no) WHERE session_id = ?) UNION (SELECT permissions.name FROM permissions JOIN " . GRANTED_ROLE_PERMISSIONS . " USING (permission_id) JOIN roles USING (role_id) WHERE roles.name IN ('default', '" . LOGGED_IN_ROLE_NAME . "'))", [$session_id]);
 }
 
 function db_get_role_id($role_name) {

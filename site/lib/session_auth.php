@@ -35,10 +35,12 @@ if (!isset($_COOKIE[SESSION_COOKIE_NAME])) {
   $permissions = db_get_permissions_by_session($_COOKIE[SESSION_COOKIE_NAME]);
 
   if (isset($_GET['role']) && in_array('manage-roles', $permissions)) {
-    $default_role_id = db_get_role_id('default');
-    $default_role_permissions = array_column(array_filter(db_get_role_permissions($default_role_id), function($role_permission) {
-      return $role_permission['has_permission'];
-    }), 'name');
+    $default_role_permissions = [];
+    foreach (['default', LOGGED_IN_ROLE_NAME] as $default_role_name) {
+      $default_role_permissions = array_merge($default_role_permissions, array_column(array_filter(db_get_role_permissions(db_get_role_id($default_role_name)), function($role_permission) {
+        return $role_permission['has_permission'];
+      }), 'name'));
+    }
 
     // Filter our current permissions to only those that are also allowed by the selected role
     $role_id = db_get_role_id($_GET['role']);

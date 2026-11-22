@@ -3,12 +3,16 @@
 What a member sees is controlled by permissions, which are granted through
 roles. Every card and most pages need a permission. Everyone, including
 people who haven't logged in, has the permissions of the `default` role.
+Everyone who has logged in also has the permissions of the `logged-in` role.
+Nobody is given either role; their permissions apply automatically, so they
+aren't offered under "Edit a member's roles".
 
 Permissions are created by migrations, and so are some roles (`default`,
-`admin`, `online`, `in-person` and a few others). The `admin` role always has
-every permission, including ones added later, and they cannot be taken away
-from it. Almost nothing else is granted to start with: the `default` role has
-no permissions, so the home page is empty until someone grants some.
+`logged-in`, `admin`, `online`, `in-person` and a few others). The `admin`
+role always has every permission, including ones added later, and they cannot
+be taken away from it. Almost nothing else is granted to start with: the
+`default` and `logged-in` roles have no permissions, so the home page is empty
+until someone grants some.
 
 ## The first administrator
 

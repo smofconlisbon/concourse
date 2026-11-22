@@ -70,8 +70,8 @@ if ($badge_no !== '') {
     $member_roles = db_get_member_roles($badge_no);
     $member_role_ids = array_column($member_roles, 'role_id');
     $other_roles = array_filter(db_get_roles(), function ($role) use ($member_role_ids) {
-      // Everyone has the default role's permissions already
-      return $role['name'] !== 'default' && !in_array($role['role_id'], $member_role_ids);
+      // Every member has these roles' permissions already
+      return !in_array($role['name'], ['default', LOGGED_IN_ROLE_NAME], true) && !in_array($role['role_id'], $member_role_ids);
     });
     usort($other_roles, function ($a, $b) {
       return strcasecmp($a['name'], $b['name']);
