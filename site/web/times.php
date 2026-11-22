@@ -26,8 +26,8 @@ render_header(
     </li>
     <li>
       <p>Saturday, 5<sup>th</sup> December</p>
-      <p><a href="https://map.smofconlisbon.org/map/first-floor/room/event-registration" target="_blank">First floor</a> (day membership and badge pickup)</p>
-      <p>9am&ndash;noon</p>
+      <p><a href="https://map.smofconlisbon.org/map/first-floor/room/event-registration" target="_blank">First floor</a></p>
+      <p>9am&ndash;noon (day membership and badge pickup)</p>
     </li>
     <li>
       <p>Sunday, 6<sup>th</sup> December</p>
