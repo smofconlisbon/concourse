@@ -263,6 +263,7 @@ main {
   grid-row: span 2;
   grid-template-rows: subgrid [image-start][image-end title-start] [title-end];
   grid-template-columns: subgrid;
+  align-items: baseline;
   row-gap: 0;
   padding: 0 20px;
   border-radius: 10px;
@@ -1126,10 +1127,17 @@ ul.maps li a {
 
 .times-list {
   list-style: none;
+  display: grid;
+  grid-template-columns: max-content auto auto;
+  column-gap: 2em;
 }
 
+/* Subgrid lines each paragraph up with the same one in the other days */
 .times-list li {
-  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: baseline;
   margin-bottom: 0.5em;
 }
 
@@ -1141,17 +1149,10 @@ ul.maps li a {
   font-weight: bold;
 }
 
-.times-list p:last-of-type {
-  position: absolute;
-  top: 0;
-  left: 20ch;
-}
-
 @media (max-width: 500px) {
-  .times-list p:last-of-type {
-    position: relative;
-    top: auto;
-    left: auto;
+  .times-list,
+  .times-list li {
+    display: block;
   }
 }
 
