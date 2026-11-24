@@ -80,7 +80,7 @@ if (!$new_replay) {
 } else {
 ?>
         <input type="hidden" name="action" value="add">
-        <p><label>Plano Item ID: <input name="item_id" value="<?php echo htmlspecialchars($item_id); ?>" required pattern="^[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}$"></label></p>
+        <p><label>Item ID: <input name="item_id" value="<?php echo htmlspecialchars($item_id); ?>" required maxlength="36"></label></p>
 <?php
 }
 ?>
