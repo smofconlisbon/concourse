@@ -429,6 +429,16 @@ main {
   background-image: url('/resources/signups.svg');
 }
 
+.card.reports {
+  background-color: var(--prog-color-light);
+}
+.card.reports .hero {
+  background: var(--prog-bg);
+}
+.card.reports .hero::after {
+  background-image: url('/resources/reports.svg');
+}
+
 .card.tours {
   background-color: var(--prog-color-light);
 }
@@ -550,6 +560,16 @@ main {
   background: var(--info-pattern);
 }
 .card.coc .hero::after {
+  background-image: url('/resources/coc.svg');
+}
+
+.card.disease-mitigation {
+  background-color: var(--info-color-light);
+}
+.card.disease-mitigation .hero {
+  background: var(--info-pattern);
+}
+.card.disease-mitigation .hero::after {
   background-image: url('/resources/coc.svg');
 }
 

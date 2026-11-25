@@ -45,6 +45,12 @@ $cards = [
       'link' => 'https://www.smofconlisbon.org/policies/code-of-conduct',
       'card-permission' => 'see-coc',
     ], [
+      'name' => 'disease-mitigation',
+      'title' => 'Disease mitigation',
+      'subtitle' => '',
+      'link' => 'https://www.smofconlisbon.org/policies/disease-mitigation',
+      'card-permission' => 'see-disease-mitigation',
+    ], [
       'name' => 'help',
       'title' => 'Get help',
       'subtitle' => 'Info desk, help desks and contacts',
@@ -83,6 +89,12 @@ $cards = [
       'subtitle' => 'Discord',
       'link' => '/chat',
       'card-permission' => 'see-discord',
+    ], [
+      'name' => 'reports',
+      'title' => 'Reports',
+      'subtitle' => 'Q&A reports',
+      'link' => 'https://www.smofconlisbon.org/reports',
+      'card-permission' => 'see-reports',
     ],
   ],
   'Participate' => [
@@ -295,6 +307,7 @@ $cards = [
     'guide',
     'times',
     'signups',
+    'reports',
     'newsletter',
     'tours',
     'itinerary',
@@ -308,6 +321,7 @@ $cards = [
     'volunteer',
     'website',
     'coc',
+    'disease-mitigation',
     'help',
   ];
 

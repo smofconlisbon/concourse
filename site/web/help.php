@@ -30,7 +30,7 @@ render_header(
 
   <h4><a name="listeners">Listener</a></h4>
   <p>Talk to someone privately about a sensitive topic, including potential Code of Conduct violations.</p>
-  <p>In person, you can ask at the registration desk to speak to a listener.</p>
+  <p>In person, you can find someone with the listeners badge. If you can't find them, ask at the registration desk.</p>
   <p>Online or in-person, you can email <a href="mailto:coc@smofconlisbon.org">coc@smofconlisbon.org</a>.</p>
 </article>
 <?php
