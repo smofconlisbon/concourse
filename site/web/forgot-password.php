@@ -41,8 +41,10 @@ if ($token !== null) {
   $title = 'Set password';
   $token_data = verify_secure_link($path, (string) $token);
   if ($token_data === 'invalid') {
+    auth_log('password-link-invalid', ['kind' => $kind]);
     $error = 'The link you used is invalid. Please request a new link.';
   } else if ($token_data === 'expired') {
+    auth_log('password-link-expired', ['kind' => $kind]);
     $error = 'The link you used has expired. Please request a new link.';
   } else {
     $email = $token_data['email'] ?? '';
@@ -59,6 +61,7 @@ if ($token !== null) {
       // Following the emailed link shows control of the address, so the
       // member is logged in without a further step.
       db_set_password_auth($email, $password);
+      auth_log('password-set', ['email' => $email, 'kind' => $kind]);
       try {
         finish_login($provider->identity_for_verified_email($email, $redirect), $redirect);
       } catch (AuthFailure $e) {
@@ -72,6 +75,7 @@ if ($token !== null) {
   $query = ['email' => $email, 'redirect' => $redirect];
 
   if (login_throttle_blocked('password-email', $email)) {
+    auth_log('login-throttled', ['action' => 'password-email', 'email' => $email]);
     $query['error'] = 'too-many-attempts';
   } else {
     login_throttle_hit('password-email', $email);

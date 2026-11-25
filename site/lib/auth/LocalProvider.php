@@ -108,6 +108,7 @@ class LocalProvider implements AuthProvider, InlineLoginForm {
     }
 
     if ($email === null) {
+      auth_log('login-invalid-email', ['input' => mb_substr((string) ($params['email'] ?? ''), 0, 100)]);
       $this->go(null, null, $redirect, 'invalid-email');
     }
 
@@ -123,21 +124,25 @@ class LocalProvider implements AuthProvider, InlineLoginForm {
 
       case 'entered-code':
         if (login_throttle_blocked('code-verify', $email)) {
+          auth_log('login-throttled', ['action' => 'code-verify', 'email' => $email]);
           $this->go('enter-code', $email, $redirect, 'too-many-attempts');
         }
         $code = preg_replace('/\D/', '', (string) ($params['code'] ?? ''));
         if (!db_consume_login_code($email, $this->hash_code($code), self::MAX_CODE_FAILURES)) {
           login_throttle_hit('code-verify', $email);
+          auth_log('login-code-invalid', ['email' => $email]);
           $this->go('enter-code', $email, $redirect, 'invalid-code');
         }
         return $this->identity_for_verified_email($email, $redirect);
 
       case 'entered-password':
         if (login_throttle_blocked('password', $email)) {
+          auth_log('login-throttled', ['action' => 'password', 'email' => $email]);
           $this->go('options', $email, $redirect, 'too-many-attempts');
         }
         if (!db_check_password_auth($email, (string) ($params['password'] ?? ''))) {
           login_throttle_hit('password', $email);
+          auth_log('login-password-incorrect', ['email' => $email]);
           $this->go('options', $email, $redirect, 'incorrect-password');
         }
         return $this->identity_for_verified_email($email, $redirect);
@@ -161,6 +166,7 @@ class LocalProvider implements AuthProvider, InlineLoginForm {
   private function request_code(string $email, string $redirect): never {
     $phase = db_email_has_password_auth($email) ? 'options' : 'enter-code';
     if (login_throttle_blocked('code-request', $email)) {
+      auth_log('login-throttled', ['action' => 'code-request', 'email' => $email]);
       $this->go($phase, $email, $redirect, 'too-many-attempts');
     }
     login_throttle_hit('code-request', $email);
@@ -174,11 +180,14 @@ class LocalProvider implements AuthProvider, InlineLoginForm {
     $members = $this->members->members_for_email($email);
 
     if (count($members) === 0) {
+      auth_log('login-no-member', ['email' => $email, 'step' => 'verified']);
       $this->go(null, null, $redirect, 'no-member');
     }
     if (count($members) === 1) {
       return $this->identity_for_member($members[0]);
     }
+
+    auth_log('login-choosing-member', ['email' => $email, 'members' => count($members)]);
 
     $token = create_secure_token('/login', ['phase' => 'select-member', 'email' => $email], self::CHOOSER_TTL);
     $this->go('choose', null, $redirect, null, $token);
@@ -220,7 +229,9 @@ class LocalProvider implements AuthProvider, InlineLoginForm {
   }
 
   public function send_login_code(string $email): void {
-    if (count($this->members->members_for_email($email)) === 0) {
+    $member_count = count($this->members->members_for_email($email));
+    if ($member_count === 0) {
+      auth_log('login-no-member', ['email' => $email, 'step' => 'code-request']);
       $this->send_no_member_email($email, CON_SHORT_NAME . ' login code');
       return;
     }
@@ -233,6 +244,7 @@ class LocalProvider implements AuthProvider, InlineLoginForm {
       ['type' => 'code', 'text' => $code],
       ['type' => 'para', 'text' => "This code will expire in 15 minutes.\n\nIf you did not request this code, you can safely ignore this email."],
     ]);
+    auth_log('login-code-sent', ['email' => $email, 'members' => $member_count]);
   }
 
   // $kind is 'set' or 'reset'. The link goes to the page of the same name.
@@ -242,6 +254,7 @@ class LocalProvider implements AuthProvider, InlineLoginForm {
     $subject = $kind === 'set' ? 'Set your password for ' . CON_SHORT_NAME : CON_SHORT_NAME . ' password reset';
 
     if (count($this->members->members_for_email($email)) === 0) {
+      auth_log('password-email-no-member', ['email' => $email, 'kind' => $kind]);
       $this->send_no_member_email($email, $subject, $task_inline);
       return;
     }
@@ -254,6 +267,7 @@ class LocalProvider implements AuthProvider, InlineLoginForm {
       ['type' => 'button', 'href' => $link, 'text' => $task_start],
       ['type' => 'para', 'text' => "This link will expire in 15 minutes.\n\nIf you did not request this link, you can safely ignore this email."],
     ]);
+    auth_log('password-email-sent', ['email' => $email, 'kind' => $kind]);
   }
 
   private function send_no_member_email(string $email, string $subject, string $task = 'log in'): void {
@@ -269,9 +283,11 @@ class LocalProvider implements AuthProvider, InlineLoginForm {
   private function complete_selected_member(array $params, string $redirect): Identity {
     $data = verify_secure_link('/login', (string) ($params['token'] ?? ''));
     if ($data === 'expired') {
+      auth_log('login-chooser-expired');
       $this->go(null, null, $redirect, 'link-expired');
     }
     if ($data === 'invalid' || ($data['phase'] ?? '') !== 'select-member') {
+      auth_log('login-chooser-invalid');
       $this->go(null, null, $redirect, 'link-invalid');
     }
 

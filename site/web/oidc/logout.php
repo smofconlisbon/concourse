@@ -17,15 +17,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $claims = $provider->verified_logout_claims();
 if ($claims === null) {
+  auth_log('oidc-logout-invalid-token');
   http_response_code(400);
   exit('Bad Request: invalid logout token');
 }
 
+$deleted = 0;
 if ($claims['sid'] !== null) {
-  db_delete_sessions_by_sid($claims['sid']);
+  $deleted = db_delete_sessions_by_sid($claims['sid']);
 } elseif ($claims['sub'] !== null) {
-  db_delete_sessions_by_sub($claims['sub']);
+  $deleted = db_delete_sessions_by_sub($claims['sub']);
 }
+auth_log('oidc-logout', ['sid' => $claims['sid'], 'sub' => $claims['sub'], 'sessions_deleted' => $deleted]);
 // Not cacheable, per the OIDC back-channel logout spec
 header('Cache-Control: no-store');
 echo 'OK';

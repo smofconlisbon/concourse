@@ -9,6 +9,7 @@ use chillerlan\QRCode\QRCode;
 $provider = oidc_provider_or_404();
 
 if (!$provider->login_in_progress()) {
+  auth_log('oidc-callback-without-login');
   $url = ROOT_URL . $_SERVER['REQUEST_URI'];
   render_header(
     'Log in',

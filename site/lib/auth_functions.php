@@ -5,6 +5,7 @@ require_once(getenv('CONFIG_LIB_DIR') . '/db.php');
 require_once(getenv('CONFIG_LIB_DIR') . '/requests.php');
 require_once(getenv('CONFIG_LIB_DIR') . '/discord.php');
 require_once(getenv('CONFIG_LIB_DIR') . '/auth/Identity.php');
+require_once(getenv('CONFIG_LIB_DIR') . '/auth/login_throttle.php');
 
 // Browsers only accept SameSite=None on Secure cookies, so plain HTTP (local
 // development) falls back to Lax. None over HTTPS lets a ConClar site on
@@ -160,11 +161,13 @@ function update_member($badge_no, $email, $name, $real_name = null) {
 // identity may not log in.
 function finish_login($identity, $redirect) {
   if (ALLOWLIST && !in_array($identity->email, ALLOWLIST)) {
+    auth_log('login-not-in-allowlist', ['badge' => $identity->badge_no, 'email' => $identity->email]);
     throw new AuthFailure('not-in-allowlist');
   }
 
   $badge_no = $identity->badge_no;
-  if (!db_member_exists($badge_no)) {
+  $is_new = !db_member_exists($badge_no);
+  if ($is_new) {
     create_member($badge_no, $identity->email, $identity->name, $identity->real_name);
   } else {
     update_member($badge_no, $identity->email, $identity->name, $identity->real_name);
@@ -178,14 +181,23 @@ function finish_login($identity, $redirect) {
   }
   $existing_roles = db_get_member_role_names($badge_no);
   $roles = array_unique($roles);
-  foreach (array_diff($roles, $existing_roles) as $role) {
+  $added_roles = array_diff($roles, $existing_roles);
+  foreach ($added_roles as $role) {
     db_add_member_role($badge_no, $role);
   }
-  foreach (array_diff(array_intersect($identity->managed_roles ?? [], $existing_roles), $roles) as $role) {
+  $removed_roles = array_diff(array_intersect($identity->managed_roles ?? [], $existing_roles), $roles);
+  foreach ($removed_roles as $role) {
     db_remove_member_role($badge_no, $role);
   }
 
   make_session($badge_no, $identity->sid, $identity->sub, $identity->id_token);
+  auth_log('login-succeeded', [
+    'badge' => $badge_no,
+    'email' => $identity->email,
+    'new_member' => $is_new ? 'yes' : null,
+    'roles_added' => $added_roles ?: null,
+    'roles_removed' => $removed_roles ?: null,
+  ]);
 
   if (session_status() === PHP_SESSION_ACTIVE) {
     session_destroy();
@@ -213,7 +225,29 @@ function role_login_sync_note($badge_no, $role_name) {
   return null;
 }
 
+// Writes one line per login, logout or password event to the PHP error log,
+// even for events that aren't errors: on shared hosting it is the only log
+// there is. Fields that are null are left out.
+function auth_log(string $event, array $fields = []): void {
+  $fields['ip'] = login_client_ip();
+  $parts = ["auth: $event"];
+  foreach ($fields as $key => $value) {
+    if ($value === null) {
+      continue;
+    }
+    $value = is_array($value) ? implode(',', $value) : (string) $value;
+    // Values come from user input, so anything unusual is JSON encoded to
+    // keep each event on one line
+    if (!preg_match('/^[\w@.+\/:,-]+$/', $value)) {
+      $value = json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+    $parts[] = "$key=$value";
+  }
+  error_log(implode(' ', $parts));
+}
+
 function redirect_to_login_error($error_code, $redirect = null) {
+  auth_log('login-failed', ['reason' => $error_code]);
   $url = '/login?error_code=' . urlencode($error_code);
   if ($redirect !== null) {
     $url .= '&redirect=' . urlencode($redirect);

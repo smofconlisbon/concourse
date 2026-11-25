@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $old_session_id = get_current_session_id();
         make_session($member['badge_no']);
         db_delete_session($old_session_id);
+        auth_log('member-switched', ['from' => $current, 'to' => $member['badge_no']]);
       }
       header('Location: ' . (is_valid_redirect($data['redirect']) ? $data['redirect'] : '/'));
       exit;
