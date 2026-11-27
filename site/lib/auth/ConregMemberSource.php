@@ -59,7 +59,9 @@ class ConregMemberSource implements MemberSource {
       $name = trim($row['first_name'] . ' ' . $row['last_name']);
     }
     return [
-      'badge_no' => (int) $row['member_no'],
+      // A string, like DbMemberSource's: callers compare it strictly against
+      // badge numbers from forms, tokens and the sessions table
+      'badge_no' => (string) $row['member_no'],
       'name' => $name,
       'email' => (string) $row['email'],
     ];
